@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let apiClient = axios.create({
-  baseURL: 'http://localhost:3003',
+  baseURL: 'https://job-applications-tracker-api.onrender.com',
   headers: {
     Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
   },
@@ -11,7 +11,7 @@ function defaultErrorHandler(error) {
   console.log(error)
 }
 
-module.exports.user = {
+const userApi = {
   login({ username, password }, callback, errorHandler = defaultErrorHandler) {
     apiClient
       .request({
@@ -76,7 +76,7 @@ module.exports.user = {
   },
 }
 
-module.exports.application = {
+const applicationApi = {
   get(userid, callback, errorHandler = defaultErrorHandler) {
     apiClient
       .request({
@@ -134,3 +134,5 @@ module.exports.application = {
       .catch((error) => errorHandler(error))
   },
 }
+
+export { userApi, applicationApi }
