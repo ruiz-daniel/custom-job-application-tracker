@@ -3,7 +3,9 @@ import axios from 'axios'
 let apiClient = axios.create({
   baseURL: 'https://job-applications-tracker-api.onrender.com',
   headers: {
-    Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+    // Authorization: `Bearer ${sessionStorage.getItem('access_token')}`,
+    Authorization:
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDJkNTQyMDAwNjQ1ZDg5NTU0OTMyY2UiLCJ1c2VybmFtZSI6InJ1Ynlyb3NlIiwiZGlzcGxheV9uYW1lIjoiUnVieSBSb3NlIiwiYWRtaW4iOmZhbHNlLCJkaXNhYmxlZCI6ZmFsc2UsIl9fdiI6MCwiaWF0IjoxNjgwNzg3MzE1LCJleHAiOjE2ODA4NzM3MTV9.Uoo8ugQGRJ0PI0QZpYLVDTxaVA_m1ypzyWFBqEnn2Nk',
   },
 })
 
@@ -67,9 +69,7 @@ const userApi = {
     apiClient
       .request({
         method: 'delete',
-        params: {
-          id: userid,
-        },
+        url: `/users/${userid}`
       })
       .then((response) => callback(response))
       .catch((error) => errorHandler(error))
@@ -81,10 +81,7 @@ const applicationApi = {
     apiClient
       .request({
         method: 'get',
-        url: '/applications/user/',
-        params: {
-          userid,
-        },
+        url: `/applications/user/${userid}`
       })
       .then((response) => callback(response))
       .catch((error) => errorHandler(error))
@@ -103,10 +100,7 @@ const applicationApi = {
     apiClient
       .request({
         method: 'get',
-        url: '/applications/',
-        params: {
-          id: applicationID,
-        },
+        url: `/applications/${applicationID}`
       })
       .then((response) => callback(response))
       .catch((error) => errorHandler(error))
@@ -125,10 +119,7 @@ const applicationApi = {
     apiClient
       .request({
         method: 'delete',
-        url: '/applications/user',
-        params: {
-          id: applicationID,
-        },
+        url: `/applications/user/${applicationID}`
       })
       .then((response) => callback(response))
       .catch((error) => errorHandler(error))
