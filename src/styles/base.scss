@@ -16,7 +16,7 @@
 }
 
 .main-section {
-  padding: 3rem;
+  padding: 1rem 3rem;
 }
 
 .p-datatable-thead > tr > th {
@@ -33,19 +33,17 @@
   }
 }
 
-.p-button {
-  box-shadow: 0 0.5rem 1.5rem 0 rgba(83, 15, 66, 0.3);
-  border-radius: 15px;
-}
-
 .p-card-body {
   height: 100%;
   display: flex;
   flex-direction: column;
 
+  .p-button {
+    box-shadow: 0 0.5rem 1.5rem 0 rgba(83, 15, 66, 0.3);
+    border-radius: 15px;
+  }
+
   .p-card-content {
     flex-grow: 1;
   }
-
-  .p-card-footer {}
 }
