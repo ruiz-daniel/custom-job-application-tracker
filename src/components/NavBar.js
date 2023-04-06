@@ -15,12 +15,12 @@ function NavBar() {
       label: sessionStorage.getItem('userid') ? 'Logout' : 'Login',
     },
   ]
-  
+
   return (
     <div className="navbar">
       <h3>Custom Job Tracker</h3>
       <Avatar
-        icon='pi pi-user'
+        icon="pi pi-user"
         size="large"
         shape="circle"
         onClick={(e) => userMenu.current.toggle(e)}

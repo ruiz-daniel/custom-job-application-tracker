@@ -8,6 +8,7 @@ import 'primeflex/primeflex.css'
 import './styles/main.scss'
 
 import NavBar from './components/NavBar'
+import ApplicationsTable from './components/ApplicationsTable'
 
 function App() {
   return (
@@ -15,6 +16,9 @@ function App() {
       <header>
         <NavBar />
       </header>
+      <section className='main-section'>
+        <ApplicationsTable />
+      </section>
     </>
   )
 }
