@@ -1,0 +1,16 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 50;
+  padding: 10px 2%;
+  box-shadow: 0 0.5rem 1rem 0 rgba(83, 15, 66, 0.1);
+
+  h3 {
+    font-family: fantasy;
+  }
+
+  .p-avatar {
+    border-radius: 50%;
+  }
+}
