@@ -23,3 +23,29 @@
   background-color: black !important ;
   color: white !important;
 }
+
+.main-section-card {
+  padding: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  .p-card {
+    margin: 10px 10px;
+  }
+}
+
+.p-button {
+  box-shadow: 0 0.5rem 1.5rem 0 rgba(83, 15, 66, 0.3);
+  border-radius: 15px;
+}
+
+.p-card-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .p-card-content {
+    flex-grow: 1;
+  }
+
+  .p-card-footer {}
+}
