@@ -21,7 +21,7 @@ function App() {
       setApplications(response.data),
     )
   })
-  const [view, setView] = useState('table')
+  const [view, setView] = useState('card')
   return (
     <>
       <header>
