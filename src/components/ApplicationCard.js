@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
@@ -7,6 +7,7 @@ import { Badge } from 'primereact/badge'
 import { Dialog } from 'primereact/dialog'
 
 import ApplicationEdit from './ApplicationEdit'
+import ProcessPhase from './ProcessPhase'
 
 import moment from 'moment'
 
@@ -20,7 +21,11 @@ function ApplicationCard({ application, onEdit, onDelete }) {
 
   const footer = (
     <div className="flex flex-wrap justify-content-end gap-2">
-      <Button label="Edit" icon="pi pi-pencil" onClick={() => setViewEditApplication(true)} />
+      <Button
+        label="Edit"
+        icon="pi pi-pencil"
+        onClick={() => setViewEditApplication(true)}
+      />
       <Button label="Delete" icon="pi pi-trash" className="p-button-danger" />
     </div>
   )
@@ -59,7 +64,14 @@ function ApplicationCard({ application, onEdit, onDelete }) {
         {application.relocation && (
           <Badge value="Relocation Support" severity="success" />
         )}
-        {application.link && <p><a href={application.link}><i className='pi pi-link' /> Link </a></p>}
+        {application.link && (
+          <p>
+            <a target="_blank" rel='noreferrer' href={application.link}>
+              <i className="pi pi-link" /> Link{' '}
+            </a>
+          </p>
+        )}
+        <ProcessPhase phase={application.processPhase} />
       </div>
       <Dialog
         header="Edit Application"

@@ -69,6 +69,7 @@ function App() {
     )
   }
   function createApplication(data) {
+    setViewCreateApplication(false)
     data.user = localStorage.getItem('userid')
     applicationApi.create(data, (response) => {
       const updatedApplications = [...applications, response.data]
