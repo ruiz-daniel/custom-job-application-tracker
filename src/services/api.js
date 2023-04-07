@@ -60,7 +60,6 @@ const userApi = {
         },
       })
       .then((response) => {
-        handleUserData(response.data)
         callback(response)
       })
       .catch((error) => errorHandler(error))

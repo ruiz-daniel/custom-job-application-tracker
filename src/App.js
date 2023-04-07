@@ -11,6 +11,7 @@ import NavBar from './components/NavBar'
 import ApplicationsTable from './components/ApplicationsTable'
 import ApplicationCard from './components/ApplicationCard'
 import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 
@@ -24,7 +25,7 @@ function App() {
 
   const [view, setView] = useState('card')
   const [viewLogin, setViewLogin] = useState(false)
-  // const [viewRegister, setViewRegister] = useState(false)
+  const [viewRegister, setViewRegister] = useState(false)
 
   function getApplications() {
     applicationApi.get(localStorage.getItem('userid'), (response) =>
@@ -47,17 +48,40 @@ function App() {
     localStorage.clear()
     window.location.reload()
   }
+  function register(data) {
+    userApi.register(
+      {
+        username: data.username,
+        password: data.password,
+        display_name: data.display_name,
+        email: data.email,
+      },
+      (response) => {
+        if (response.status === 200) {
+          setViewRegister(false)
+        }
+      },
+    )
+  }
   return (
     <>
       <header>
-        <NavBar onLogin={() => setViewLogin(true)} onLogout={logout} />
+        <NavBar onLogin={() => setViewLogin(true)} onLogout={logout} onRegister={() => setViewRegister(true)} />
         <Dialog
-          header="Login"
+          header="Sign In"
           visible={viewLogin}
-          className='login-dialog'
+          className="login-dialog"
           onHide={() => setViewLogin(false)}
         >
           <LoginForm onSubmit={login} />
+        </Dialog>
+        <Dialog
+          header="Sign Up"
+          visible={viewRegister}
+          className="login-dialog"
+          onHide={() => setViewRegister(false)}
+        >
+          <RegisterForm onSubmit={register} />
         </Dialog>
       </header>
 
