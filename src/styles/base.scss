@@ -74,6 +74,36 @@
       box-shadow: none !important;
     }
   }
+  .p-chips {
+    width: 100%;
+    .p-inputtext {
+      width: 100%;
+    }
+  }
+  .p-dropdown {
+    .p-inputtext {
+      border: none;
+    }
+  }
+  .p-calendar {
+    .p-button {
+      box-shadow: none;
+      border-radius: 0 5px 5px 0;
+    }
+  }
+  .p-inputtextarea {
+    border: solid 0.1px;
+  }
+}
+
+.p-button,
+.p-inputtextarea,
+.p-chips {
+  &:focus {
+    box-shadow: none !important;
+  }
+}.p-focus {
+  box-shadow: none !important;
 }
 
 .floating-button {
@@ -105,4 +135,8 @@ a {
     width: 60vw;
   }
   width: 30vw;
+}
+
+.p-dialog-header {
+  border-radius: 15px 15px 0 0 !important;
 }
