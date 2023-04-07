@@ -8,7 +8,7 @@ function ProcessPhase({phase}) {
         color: 'green'
       }
     }
-    else if (phase === 'Final Answer') {
+    else if (phase === 'Final Answer' || phase === 'Rejected' || phase === 'Hired') {
       return {
         fontWeight: 700,
         color: 'red'

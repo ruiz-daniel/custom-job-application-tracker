@@ -26,6 +26,7 @@ function ApplicationEdit({ application, onSubmit }) {
     'Final Answer',
     'Offer',
     'Hired',
+    'Rejected'
   ]
 
   return (

@@ -26,6 +26,7 @@ function ApplicationCreate({ onSubmit }) {
     'Final Answer',
     'Offer',
     'Hired',
+    'Rejected'
   ]
 
   return (
