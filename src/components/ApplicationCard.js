@@ -22,7 +22,8 @@ function ApplicationCard({ application }) {
       footer={footer}
       className="md:w-25rem"
     >
-      <p className="m-0">{application.description}</p>
+      <strong>{application.country}</strong>
+      <p className="m-0 mt-2">{application.description}</p>
       <div className="application-card-data">
         <p>{moment(application.dateApplied).format('LLLL')}</p>
         <div className="flex flex-wrap justify-content-space-evenly mb-2">
@@ -48,7 +49,7 @@ function ApplicationCard({ application }) {
         {application.relocation && (
           <Badge value="Relocation Support" severity="success" />
         )}
-        <p>{application.link}</p>
+        {application.link && <p><a href={application.link}><i className='pi pi-link' /> Link </a></p>}
       </div>
     </Card>
   )

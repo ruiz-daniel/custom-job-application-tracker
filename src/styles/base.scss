@@ -16,7 +16,8 @@
 }
 .navbar-right {
   display: flex;
-  h4, p {
+  h4,
+  p {
     margin: 1rem;
   }
   p {
@@ -71,12 +72,26 @@
     border-radius: 0;
     &:focus {
       box-shadow: none !important;
+    }
   }
-  }
+}
+
+.floating-button {
+  box-shadow: 0 0.5rem 1.5rem 0 rgba(83, 15, 66, 0.3);
+  border-radius: 15px;
 }
 
 .error-message {
   color: red;
+}
+
+a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.p-chip {
+  margin-right: 5px;
 }
 
 .login-dialog {
