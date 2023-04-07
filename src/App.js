@@ -19,6 +19,7 @@ import { Dialog } from 'primereact/dialog'
 
 import { applicationApi, userApi } from './services/api'
 
+
 function App() {
   const [applications, setApplications] = React.useState([])
   React.useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
   const [viewLogin, setViewLogin] = useState(false)
   const [viewRegister, setViewRegister] = useState(false)
   const [viewCreateApplication, setViewCreateApplication] = useState(false)
+  
 
   function getApplications() {
     applicationApi.get(localStorage.getItem('userid'), (response) =>
@@ -73,6 +75,22 @@ function App() {
       setApplications(updatedApplications)
     })
   }
+  function editApplication(application, data) {
+    data._id = application._id
+    data.user = application.user
+    applicationApi.update(data, (response) => {
+      if (response.status === 200) {
+        const updatedApplications = applications.map(application => {
+          if (application._id === response.data._id) {
+            return response.data
+          } else {
+            return application
+          }
+        })
+        setApplications(updatedApplications)
+      }
+    })
+  }
   return (
     <>
       <header>
@@ -99,15 +117,14 @@ function App() {
         </Dialog>
       </header>
       <Dialog
-          header="New Application"
-          visible={viewCreateApplication}
-          className="login-dialog"
-          onHide={() => setViewCreateApplication(false)}
-        >
-          <ApplicationCreate onSubmit={createApplication} />
-        </Dialog>
+        header="New Application"
+        visible={viewCreateApplication}
+        className="login-dialog"
+        onHide={() => setViewCreateApplication(false)}
+      >
+        <ApplicationCreate onSubmit={createApplication} />
+      </Dialog>
       <div className="flex flex-row-reverse px-6 pt-3">
-        
         <Button
           className="ml-2"
           icon="pi pi-th-large"
@@ -126,8 +143,8 @@ function App() {
         <Button
           className="mr-4 floating-button"
           icon="pi pi-plus"
-          label='New Application'
-          size='small'
+          label="New Application"
+          size="small"
           onClick={() => setViewCreateApplication(true)}
         />
       </div>
@@ -139,7 +156,7 @@ function App() {
       {view === 'card' && (
         <section className="main-section-card">
           {applications.map((application) => (
-            <ApplicationCard application={application} />
+            <ApplicationCard application={application} onEdit={editApplication} />
           ))}
         </section>
       )}

@@ -1,16 +1,26 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
 import { Badge } from 'primereact/badge'
+import { Dialog } from 'primereact/dialog'
+
+import ApplicationEdit from './ApplicationEdit'
 
 import moment from 'moment'
 
-function ApplicationCard({ application }) {
+function ApplicationCard({ application, onEdit, onDelete }) {
+  const [viewEditApplication, setViewEditApplication] = useState(false)
+
+  function handleEdit(data) {
+    onEdit(application, data)
+    setViewEditApplication(false)
+  }
+
   const footer = (
     <div className="flex flex-wrap justify-content-end gap-2">
-      <Button label="Edit" icon="pi pi-pencil" />
+      <Button label="Edit" icon="pi pi-pencil" onClick={() => setViewEditApplication(true)} />
       <Button label="Delete" icon="pi pi-trash" className="p-button-danger" />
     </div>
   )
@@ -51,6 +61,14 @@ function ApplicationCard({ application }) {
         )}
         {application.link && <p><a href={application.link}><i className='pi pi-link' /> Link </a></p>}
       </div>
+      <Dialog
+        header="Edit Application"
+        visible={viewEditApplication}
+        className="login-dialog"
+        onHide={() => setViewEditApplication(false)}
+      >
+        <ApplicationEdit application={application} onSubmit={handleEdit} />
+      </Dialog>
     </Card>
   )
 }
