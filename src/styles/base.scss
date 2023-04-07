@@ -47,3 +47,35 @@
     flex-grow: 1;
   }
 }
+
+.form-content {
+  .p-button {
+    box-shadow: 0 0.5rem 1.5rem 0 rgba(83, 15, 66, 0.3);
+    border-radius: 15px;
+  }
+  .p-inputtext {
+    border: none;
+    border-bottom: solid 0.05px;
+    border-radius: 0;
+    &:focus {
+      box-shadow: none !important;
+  }
+  }
+}
+
+.error-message {
+  color: red;
+}
+
+.login-dialog {
+  @include respond(phone) {
+    width: 50vw;
+  }
+  @include respond(tab-port) {
+    width: 80vw;
+  }
+  @include respond(tab-land) {
+    width: 60vw;
+  }
+  width: 30vw;
+}

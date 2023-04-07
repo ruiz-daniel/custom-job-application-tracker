@@ -3,16 +3,17 @@ import React, { useRef } from 'react'
 import { Avatar } from 'primereact/avatar'
 import { Menu } from 'primereact/menu'
 
-function NavBar() {
+function NavBar({ onLogin, onLogout }) {
   const userMenu = useRef(null)
   const userMenuItems = [
     {
-      label: sessionStorage.getItem('username')
-        ? sessionStorage.getItem('display_name')
+      label: localStorage.getItem('username')
+        ? localStorage.getItem('display_name')
         : 'Guest',
     },
     {
-      label: sessionStorage.getItem('userid') ? 'Logout' : 'Login',
+      label: localStorage.getItem('userid') ? 'Logout' : 'Login',
+      command: localStorage.getItem('userid') ? onLogout : onLogin,
     },
   ]
 
