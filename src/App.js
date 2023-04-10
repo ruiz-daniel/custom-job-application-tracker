@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { userApi } from './services/api'
+import ApplicationContext from './context/applications'
 
 import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
@@ -17,11 +19,10 @@ import ApplicationCreate from './components/ApplicationCreate'
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 
-import { applicationApi, userApi } from './services/api'
-
-
 function App() {
-  const [applications, setApplications] = React.useState([])
+  const { applications, getApplications, createApplication } = useContext(
+    ApplicationContext,
+  )
   React.useEffect(() => {
     localStorage.getItem('userid') && getApplications()
   }, [])
@@ -30,12 +31,11 @@ function App() {
   const [viewLogin, setViewLogin] = useState(false)
   const [viewRegister, setViewRegister] = useState(false)
   const [viewCreateApplication, setViewCreateApplication] = useState(false)
-  
 
-  function getApplications() {
-    applicationApi.get(localStorage.getItem('userid'), (response) =>
-      setApplications(response.data),
-    )
+  function handleCreateApplication(data) {
+    setViewCreateApplication(false)
+    createApplication(data)
+    
   }
 
   function login(data) {
@@ -68,30 +68,6 @@ function App() {
       },
     )
   }
-  function createApplication(data) {
-    setViewCreateApplication(false)
-    data.user = localStorage.getItem('userid')
-    applicationApi.create(data, (response) => {
-      const updatedApplications = [...applications, response.data]
-      setApplications(updatedApplications)
-    })
-  }
-  function editApplication(application, data) {
-    data._id = application._id
-    data.user = application.user
-    applicationApi.update(data, (response) => {
-      if (response.status === 200) {
-        const updatedApplications = applications.map(application => {
-          if (application._id === response.data._id) {
-            return response.data
-          } else {
-            return application
-          }
-        })
-        setApplications(updatedApplications)
-      }
-    })
-  }
   return (
     <>
       <header>
@@ -123,7 +99,7 @@ function App() {
         className="login-dialog"
         onHide={() => setViewCreateApplication(false)}
       >
-        <ApplicationCreate onSubmit={createApplication} />
+        <ApplicationCreate onSubmit={handleCreateApplication} />
       </Dialog>
       <div className="flex flex-row-reverse px-6 pt-3">
         <Button
@@ -157,7 +133,9 @@ function App() {
       {view === 'card' && (
         <section className="main-section-card">
           {applications.map((application) => (
-            <ApplicationCard application={application} onEdit={editApplication} />
+            <ApplicationCard
+              application={application}
+            />
           ))}
         </section>
       )}

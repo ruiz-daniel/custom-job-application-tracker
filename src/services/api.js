@@ -128,7 +128,7 @@ const applicationApi = {
     apiClient
       .request({
         method: 'delete',
-        url: `/applications/user/${applicationID}`,
+        url: `/applications/${applicationID}`,
       })
       .then((response) => callback(response))
       .catch((error) => errorHandler(error))

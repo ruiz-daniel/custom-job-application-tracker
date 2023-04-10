@@ -1,22 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import ApplicationContext from '../context/applications'
 
 import { Card } from 'primereact/card'
 import { Button } from 'primereact/button'
 import { Chip } from 'primereact/chip'
 import { Badge } from 'primereact/badge'
 import { Dialog } from 'primereact/dialog'
+import { ConfirmDialog } from 'primereact/confirmdialog'
 
 import ApplicationEdit from './ApplicationEdit'
 import ProcessPhase from './ProcessPhase'
 
 import moment from 'moment'
 
-function ApplicationCard({ application, onEdit, onDelete }) {
+function ApplicationCard({ application }) {
   const [viewEditApplication, setViewEditApplication] = useState(false)
+  const [viewDeleteApplication, setViewDeleteApplication] = useState(false)
+  const { updateApplication, deleteApplication } = useContext(
+    ApplicationContext,
+  )
 
   function handleEdit(data) {
-    onEdit(application, data)
     setViewEditApplication(false)
+    updateApplication(application, data)
+  }
+  function handleDelete() {
+    deleteApplication(application)
   }
 
   const footer = (
@@ -26,7 +35,12 @@ function ApplicationCard({ application, onEdit, onDelete }) {
         icon="pi pi-pencil"
         onClick={() => setViewEditApplication(true)}
       />
-      <Button label="Delete" icon="pi pi-trash" className="p-button-danger" />
+      <Button
+        label="Delete"
+        icon="pi pi-trash"
+        className="p-button-danger"
+        onClick={() => setViewDeleteApplication(true)}
+      />
     </div>
   )
 
@@ -66,7 +80,7 @@ function ApplicationCard({ application, onEdit, onDelete }) {
         )}
         {application.link && (
           <p>
-            <a target="_blank" rel='noreferrer' href={application.link}>
+            <a target="_blank" rel="noreferrer" href={application.link}>
               <i className="pi pi-link" /> Link{' '}
             </a>
           </p>
@@ -81,6 +95,14 @@ function ApplicationCard({ application, onEdit, onDelete }) {
       >
         <ApplicationEdit application={application} onSubmit={handleEdit} />
       </Dialog>
+      <ConfirmDialog
+        visible={viewDeleteApplication}
+        onHide={() => setViewDeleteApplication(false)}
+        message="Are you sure you want to delete this application?"
+        header="Delete Application"
+        icon="pi pi-exclamation-triangle"
+        accept={handleDelete}
+      />
     </Card>
   )
 }
