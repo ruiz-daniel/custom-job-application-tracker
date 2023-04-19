@@ -23,9 +23,6 @@ function App() {
   const { applications, getApplications, createApplication } = useContext(
     ApplicationContext,
   )
-  React.useEffect(() => {
-    localStorage.getItem('userid') && getApplications()
-  }, [])
 
   const [view, setView] = useState('card')
   const [viewLogin, setViewLogin] = useState(false)
