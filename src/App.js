@@ -20,7 +20,7 @@ import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
 
 function App() {
-  const { applications, getApplications, createApplication } = useContext(
+  const { applications, getApplications, createApplication, toast } = useContext(
     ApplicationContext,
   )
 
@@ -31,7 +31,9 @@ function App() {
 
   function handleCreateApplication(data) {
     setViewCreateApplication(false)
-    createApplication(data)
+    createApplication(data, () => {
+      toast.current.show({ severity: 'info', summary: 'Application Created' });
+    })
     
   }
 

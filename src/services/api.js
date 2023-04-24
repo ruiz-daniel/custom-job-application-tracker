@@ -9,6 +9,7 @@ let apiClient = axios.create({
 
 function defaultErrorHandler(error) {
   console.log(error)
+  alert("An Error Ocurred")
 }
 
 function handleUserData(data) {

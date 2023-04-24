@@ -13,15 +13,16 @@ export function useApplications() {
     )
   }
 
-  function createApplication(data) {
+  function createApplication(data, callback) {
     data.user = localStorage.getItem('userid')
     applicationApi.create(data, (response) => {
       const updatedApplications = [...applications, response.data]
       setApplications(updatedApplications)
+      callback()
     })
   }
-  function updateApplication(application, updatedApplication) {
-    updatedApplication._id = application._id
+  function updateApplication(application, updatedApplication, callback) {
+    updatedApplication._id = application.id
     updatedApplication.user = application.user
     applicationApi.update(updatedApplication, (response) => {
       if (response.status === 200) {
@@ -33,16 +34,18 @@ export function useApplications() {
           }
         })
         setApplications(updatedApplications)
+        callback()
       }
     })
   }
-  function deleteApplication(application) {
+  function deleteApplication(application, callback) {
     applicationApi.delete(application._id, (response) => {
       if (response.status === 200) {
         const updatedApplications = applications.filter(
           (element) => application._id !== element._id,
         )
         setApplications(updatedApplications)
+        callback()
       }
     })
   }

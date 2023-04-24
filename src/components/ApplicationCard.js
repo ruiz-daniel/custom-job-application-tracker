@@ -16,16 +16,20 @@ import moment from 'moment'
 function ApplicationCard({ application }) {
   const [viewEditApplication, setViewEditApplication] = useState(false)
   const [viewDeleteApplication, setViewDeleteApplication] = useState(false)
-  const { updateApplication, deleteApplication } = useContext(
+  const { updateApplication, deleteApplication, toast } = useContext(
     ApplicationContext,
   )
 
   function handleEdit(data) {
     setViewEditApplication(false)
-    updateApplication(application, data)
+    updateApplication(application, data, () => {
+      toast.current.show({ severity: 'info', summary: 'Application Updated' });
+    })
   }
   function handleDelete() {
-    deleteApplication(application)
+    deleteApplication(application, () => {
+      toast.current.show({ severity: 'info', summary: 'Application Deleted' });
+    })
   }
 
   const footer = (
