@@ -6,7 +6,7 @@ const ApplicationContext = createContext()
 
 function Provider({ children }) {
 
-  const { applications, getApplications, createApplication, updateApplication, deleteApplication  } = useApplications()
+  const { applications, getApplications, createApplication, updateApplication, deleteApplication, loading  } = useApplications()
   const toast = useRef(null);
 
   const share = {
@@ -15,7 +15,8 @@ function Provider({ children }) {
     createApplication,
     updateApplication,
     deleteApplication,
-    toast
+    toast,
+    loading
   }
 
   return (

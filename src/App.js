@@ -21,7 +21,7 @@ import { Dialog } from 'primereact/dialog'
 import { InputText } from 'primereact/inputtext'
 
 function App() {
-  const { applications, getApplications, createApplication, toast } = useContext(
+  const { applications, getApplications, createApplication, toast, loading } = useContext(
     ApplicationContext,
   )
 
@@ -134,13 +134,15 @@ function App() {
         
       </div>
       </section>
+
+      {loading && <div className='flex justify-content-center'><h2>Loading...</h2></div>}
       
-      {view === 'table' && (
+      {!loading && view === 'table' && (
         <section className="main-section">
           <ApplicationsTable applications={applications} />
         </section>
       )}
-      {view === 'card' && (
+      {!loading && view === 'card' && (
         <section className="main-section-card">
           {applications.map((application) => (
             <ApplicationCard

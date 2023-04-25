@@ -3,27 +3,40 @@ import { applicationApi } from '../services/api'
 
 export function useApplications() {
   const [applications, setApplications] = useState([])
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     localStorage.getItem('userid') && getApplications()
   }, [])
 
   function getApplications() {
-    applicationApi.get(localStorage.getItem('userid'), (response) =>
-      setApplications(response.data), (error) => { error.status === 401 ? localStorage.clear() : console.log(error)}
+    setLoading(true)
+    applicationApi.get(
+      localStorage.getItem('userid'),
+      (response) => {
+        setApplications(response.data)
+        setLoading(false)
+      },
+      (error) => {
+        error.status === 401 ? localStorage.clear() : console.log(error)
+        setLoading(false)
+      },
     )
   }
 
   function createApplication(data, callback) {
     data.user = localStorage.getItem('userid')
+    setLoading(false)
     applicationApi.create(data, (response) => {
       const updatedApplications = [...applications, response.data]
       setApplications(updatedApplications)
+      setLoading(false)
       callback()
     })
   }
   function updateApplication(application, updatedApplication, callback) {
     updatedApplication._id = application.id
     updatedApplication.user = application.user
+    setLoading(true)
     applicationApi.update(updatedApplication, (response) => {
       if (response.status === 200) {
         const updatedApplications = applications.map((application) => {
@@ -34,23 +47,26 @@ export function useApplications() {
           }
         })
         setApplications(updatedApplications)
+        setLoading(false)
         callback()
       }
     })
   }
   function deleteApplication(application, callback) {
+    setLoading(true)
     applicationApi.delete(application._id, (response) => {
       if (response.status === 200) {
         const updatedApplications = applications.filter(
           (element) => application._id !== element._id,
         )
         setApplications(updatedApplications)
+        setLoading(false)
         callback()
       }
     })
   }
 
-  const mappedApplications = applications.map( application => ({
+  const mappedApplications = applications.map((application) => ({
     id: application._id,
     position: application.position,
     description: application.description,
@@ -68,5 +84,12 @@ export function useApplications() {
     user: application.user,
   }))
 
-  return { applications : mappedApplications, getApplications, createApplication, updateApplication, deleteApplication }
+  return {
+    applications: mappedApplications,
+    getApplications,
+    createApplication,
+    updateApplication,
+    deleteApplication,
+    loading,
+  }
 }
