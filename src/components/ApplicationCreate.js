@@ -7,7 +7,7 @@ import { InputTextarea } from 'primereact/inputtextarea'
 import { Chips } from 'primereact/chips'
 import { InputSwitch } from 'primereact/inputswitch'
 import { Dropdown } from 'primereact/dropdown'
-import { Calendar } from 'primereact/calendar';
+import { Calendar } from 'primereact/calendar'
 
 function ApplicationCreate({ onSubmit }) {
   const {
@@ -26,7 +26,7 @@ function ApplicationCreate({ onSubmit }) {
     'Final Answer',
     'Offer',
     'Hired',
-    'Rejected'
+    'Rejected',
   ]
 
   return (
@@ -113,6 +113,7 @@ function ApplicationCreate({ onSubmit }) {
           <Controller
             name="processPhase"
             control={control}
+            defaultValue={"Applied"}
             render={({ field, fieldState }) => (
               <Dropdown
                 value={field.value}
@@ -122,7 +123,7 @@ function ApplicationCreate({ onSubmit }) {
             )}
           />
           <h5>Applied On</h5>
-          <Calendar {...register('dateApplied')} showIcon />
+          <Calendar  {...register('dateApplied')} showIcon />
           <h5>Link</h5>
           <InputText className="p-mb-3" {...register('link')} />
           <Button
