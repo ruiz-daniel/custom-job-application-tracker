@@ -25,7 +25,7 @@ export function useApplications() {
 
   function createApplication(data, callback) {
     data.user = localStorage.getItem('userid')
-    setLoading(false)
+    setLoading(true)
     applicationApi.create(data, (response) => {
       const updatedApplications = [...applications, response.data]
       setApplications(updatedApplications)
