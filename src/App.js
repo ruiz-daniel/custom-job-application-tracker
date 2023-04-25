@@ -18,6 +18,7 @@ import ApplicationCreate from './components/ApplicationCreate'
 
 import { Button } from 'primereact/button'
 import { Dialog } from 'primereact/dialog'
+import { InputText } from 'primereact/inputtext'
 
 function App() {
   const { applications, getApplications, createApplication, toast } = useContext(
@@ -100,7 +101,14 @@ function App() {
       >
         <ApplicationCreate onSubmit={handleCreateApplication} />
       </Dialog>
-      <div className="flex flex-row-reverse px-6 pt-3">
+      <section className='flex'>
+        <div className='flex-grow-1 px-6 pt-3'>
+          <span className="p-input-icon-left">
+            <i className="pi pi-search" />
+            <InputText placeholder="Search" onChange={(e) => {}} />
+          </span>
+        </div>
+        <div className="flex flex-row-reverse px-6 pt-3">
         <Button
           className="ml-2"
           icon="pi pi-th-large"
@@ -123,7 +131,10 @@ function App() {
           size="small"
           onClick={() => setViewCreateApplication(true)}
         />
+        
       </div>
+      </section>
+      
       {view === 'table' && (
         <section className="main-section">
           <ApplicationsTable applications={applications} />
